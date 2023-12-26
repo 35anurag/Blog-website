@@ -25,25 +25,30 @@ const Navbar = () => {
   };
 
   return (
-    <div className="flex flex-row gap-5">
-      <Link href="/home">Home</Link>
-      {user ? (
-        <Link className="pr-6" href="/createpost">
-          Create Post
+    <div className="mx-[4rem] flex justify-center">
+      <div className="flex flex-row items-center gap-5">
+        <Link href="/home" className="font-semibold text-[30px] text-black mr-[4rem]">
+          Blog
         </Link>
-      ) : (
-        <Link className="pr-6" href="/login">
-          Create Post
-        </Link>
-      )}
-      {user ? (
-        <div>{user ? userName(user.email) : ""}</div>
-      ) : (
-        <Link href="/login">Login</Link>
-      )}
-      <button className="pl-6" onClick={logout}>
-        Signout
-      </button>
+        <Link href="/home" className="font-medium">Home</Link>
+        {user ? (
+          <div className="flex flex-row items-center gap-7">
+            <Link className="font-medium" href="/createpost">
+              Create Post
+            </Link>
+            <div className="font-medium">{userName(user.email)}</div>
+            <button className="font-medium" onClick={logout}>
+              Signout
+            </button>
+          </div>
+        ) : (
+          <div className="flex flex-row gap-7 items-center">
+            <Link href="/login" className="font-medium">Create Post</Link>
+            <Link href="/login" className="font-medium">Login</Link>
+            <Link href="/signin" className="font-medium">Signin</Link>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

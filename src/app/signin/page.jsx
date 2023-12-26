@@ -16,6 +16,8 @@ const Signin = () => {
   const {setUser } = useAuthContext()
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
+  const [signInError, setSignInError] = useState("");
+
   onAuthStateChanged(auth, (currentUser)=>{
     setUser(currentUser);
   })
@@ -28,8 +30,10 @@ const Signin = () => {
         registerPassword
       );
       console.log(user);
+      setSignInError("You have successfully registered")
     } catch (error) {
       console.log(error.message);
+      setSignInError("Your credential is incorrect")
     }
   };
 
@@ -37,7 +41,7 @@ const Signin = () => {
     <div className="flex bg-white">
       <div className="p-10 lg:flex-1">
         <div>
-          <h1 className="font-bold lg:text-[24px] text-2xl mb-[80px] lg:mb-[55px]">
+          <h1 className="font-bold lg:text-[24px] text-2xl mb-[80px] lg:mb-[50px]">
             Signin
           </h1>
         </div>
@@ -70,6 +74,7 @@ const Signin = () => {
                 />
               </div>
             </form>
+            <div className="text-center w-[30rem] mt-2 font-medium text-red-500 text-sm">{signInError}</div>
           </div>
 
           <div className="flex flex-col gap-5 justify-center text-gray-400 font-medium lg:text-[15px] lg:w-[30rem]">
