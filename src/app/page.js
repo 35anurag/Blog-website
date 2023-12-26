@@ -11,7 +11,7 @@ import Top from "./top/page";
 const page = ({ children }) => {
   return (
     <div className="overflow-hidden">
-      {/* <Top /> */}
+      <Top />
       <Home />
       {children}
     </div>
