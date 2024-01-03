@@ -10,12 +10,12 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
 import Link from "next/link";
 
-const createPost = () => {
+const CreatePost = () => {
   const { user } = useAuthContext();
 
   const [title, setTitle] = useState("");
   const [postText, setPostText] = useState("");
-  const [imageUpload, setImageUpload] = useState("");
+  const [imageUpload, setImageUpload] = useState(null);
   const [imageLink, setImageLink] = useState("");
 
   const postCollection = collection(db, "posts");
@@ -91,4 +91,4 @@ const createPost = () => {
   );
 };
 
-export default createPost;
+export default CreatePost;

@@ -19,7 +19,7 @@ import { db, storage } from "../firebase-config";
 import { ref } from "firebase/storage";
 import Link from "next/link";
 
-const home = () => {
+const Home = () => {
   const { user } = useAuthContext();
   const [post, setPost] = useState([]);
   const postCollection = collection(db, "posts");
@@ -237,4 +237,4 @@ const home = () => {
   );
 };
 
-export default home;
+export default Home;
