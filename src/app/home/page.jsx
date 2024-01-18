@@ -1,7 +1,8 @@
 "use client";
-import React, { useEffect, useId, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import { FaHeart } from "react-icons/fa6";
+import { IoMdHeartDislike } from "react-icons/io";
 import { MdDeleteOutline } from "react-icons/md";
 import Image from "next/image";
 
@@ -24,9 +25,8 @@ const Home = () => {
   const [post, setPost] = useState([]);
   const postCollection = collection(db, "posts");
   const [inputComment, setInputComment] = useState("");
-  // const [commentArray, setCommentArray] = useState([]);
 
-  const fetchPosts = async () => {
+  async () => {
     const data = await getDocs(postCollection);
     const fetchedPost = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
 
@@ -53,26 +53,22 @@ const Home = () => {
 
   const handleLike = async (postId, userId) => {
     const postRef = doc(db, "posts", postId);
-    const postToUpdate = post.find((p)=>p.id === postId);
+    const postToUpdate = post.find((p) => p.id === postId);
 
     if (postToUpdate.likes && postToUpdate.likes.includes(userId)) {
       console.log("You've already liked this post!");
       return;
-    }
-    else{
+    } else {
       await updateDoc(postRef, {
         likes: arrayUnion(userId),
       });
     }
-    
+
     setPost((prevPosts) =>
       prevPosts.map((post) =>
-        post.id === postId ? { ...post, likes: [...post.likes, useId] } : post
+        post.id === postId ? { ...post, likes: [...post.likes, userId] } : post
       )
-    )
-
-    // const updatedPost = await fetchPosts();
-    // setPost(updatedPost);
+    );
   };
 
   const handleDislike = async (postId, userId) => {
@@ -91,8 +87,6 @@ const Home = () => {
   };
 
   const handleComment = async (postId) => {
-    // const newCommentArray = [...commentArray, inputComment];
-
     const postRef = doc(db, "posts", postId);
     const currentPost = post.find((p) => p.id === postId);
     const existingComments = currentPost.comments || [];
@@ -103,13 +97,30 @@ const Home = () => {
 
     const updatedPost = post.map((p) => {
       if (p.id === postId) {
-        // const updatedComments  = p.comments ? [...p.comments, inputComment]:[inputComment]
         return { ...p, comments: updatedComments };
       }
       return p;
     });
     setPost(updatedPost);
   };
+
+  const handleDelete = async(commentId, postId)=>{
+    const postRef = doc(db, "posts", postId);
+    const currentPost = post.find((p) => p.id === postId);
+    const existingComments = currentPost.comments || [];
+    const updatedComments = [...existingComments.slice(0, commentId), ...existingComments.slice(commentId + 1)];
+    await updateDoc(postRef, {
+      comments: updatedComments,
+    });
+    
+    const updatedPost = post.map((p) => {
+      if (p.id === postId) {
+        return { ...p, comments: updatedComments };
+      }
+      return p;
+    });
+    setPost(updatedPost);       
+  }
 
   const userName = (name) => {
     let text = name;
@@ -133,7 +144,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className=" bg-[#e4e3de] ">
+    <div className=" bg-[#e4e3de] h-screen">
       <Navbar />
       <div className="">
         {post && post.length > 0 ? (
@@ -146,8 +157,9 @@ const Home = () => {
                 <div className="bg-white p-4 pr-[5rem]">
                   <div className="flex flex-row justify-between items-center">
                     <div className="text-[18px] font-medium flex gap-2">
-                      <span>Author:</span>
-                      {userName(post.author.name)}
+                      {/* <span>Author:</span> */}
+                      <p className="text-sm">{userName(post.author.name)}</p>
+                      
                     </div>
 
                     {user
@@ -160,7 +172,7 @@ const Home = () => {
                   </div>
                   <div className="text-[18px] font-medium flex gap-2 opacity-75">
                     <span>Title:</span>
-                    {post.title}
+                    <p className="capitalize">{post.title}</p>
                   </div>
 
                   <div className="opacity-75">{post.postText}</div>
@@ -168,13 +180,13 @@ const Home = () => {
                     {user ? (
                       <div className="flex flex-row items-center gap-2 my-2">
                         <button onClick={() => handleLike(post.id, user.email)}>
-                          <FaHeart />
+                          <FaHeart/>
                         </button>
                         <p>{post.likes ? post.likes.length : 0}</p>
                         <button
                           onClick={() => handleDislike(post.id, user.email)}
                         >
-                          Dislike
+                          <IoMdHeartDislike className="text-[20px]"/>
                         </button>
                       </div>
                     ) : (
@@ -183,7 +195,7 @@ const Home = () => {
                           <FaHeart />
                         </Link>
                         <p>{post.likes ? post.likes.length : 0}</p>
-                        <Link href="/login">Dislike</Link>
+                        <Link href="/login"><IoMdHeartDislike className="text-[20px]"/></Link>
                       </div>
                     )}
 
@@ -198,7 +210,7 @@ const Home = () => {
                       />
                       <button
                         onClick={() => handleComment(post.id)}
-                        className="w-auto h-auto px-3 pb-1 text-center rounded-xl bg-[#e4e3de] flex justify-center font-medium text-sm"
+                        className="w-auto h-auto px-3 py-1 rounded-xl bg-[#e4e3de] flex justify-center items-center font-medium text-sm"
                       >
                         post
                       </button>
@@ -208,13 +220,17 @@ const Home = () => {
                       {post.comments &&
                         post.comments.map((comment, index) => (
                           <div key={index} className="mt-1">
-                            {comment}
+                            <div className="flex flex-row justify-between items-center">
+                              {comment}
+                              <button onClick={()=>handleDelete(index, post.id)}>
+                              <MdDeleteOutline className="text-[22px]" />
+                              </button>
+                            </div>
                           </div>
                         ))}
                     </div>
                   </div>
-                  </div>
-                
+                </div>
 
                 {post.image && (
                   <Image
@@ -225,7 +241,6 @@ const Home = () => {
                     className="absolute z-50 ml-[500px]"
                   />
                 )}
-                
               </div>
             );
           })
