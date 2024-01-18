@@ -1,6 +1,7 @@
 "use client";
 import React, { useRef } from "react";
 import { useScroll, motion, useTransform } from "framer-motion";
+import "./page.css"
 
 const Top = () => {
   const ref = useRef(null);

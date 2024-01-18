@@ -5,6 +5,7 @@ import { FaHeart } from "react-icons/fa6";
 import { IoMdHeartDislike } from "react-icons/io";
 import { MdDeleteOutline } from "react-icons/md";
 import Image from "next/image";
+import "./page.css"
 
 import { useAuthContext } from "../context/AuthContext";
 import {
@@ -141,10 +142,10 @@ const Home = () => {
       setPost(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     };
     showPost();
-  }, []);
+  }, [postCollection]);
 
   return (
-    <div className=" bg-[#e4e3de] h-screen">
+    <div className="bg-[#e4e3de] min-h-[100vh]">
       <Navbar />
       <div className="">
         {post && post.length > 0 ? (
@@ -157,9 +158,7 @@ const Home = () => {
                 <div className="bg-white p-4 pr-[5rem]">
                   <div className="flex flex-row justify-between items-center">
                     <div className="text-[18px] font-medium flex gap-2">
-                      {/* <span>Author:</span> */}
                       <p className="text-sm">{userName(post.author.name)}</p>
-                      
                     </div>
 
                     {user
