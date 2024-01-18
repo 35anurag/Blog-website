@@ -41,8 +41,10 @@ const Login = () => {
         </div>
         <div className="flex flex-col justify-center">
           <h1 className="font-medium text-xl lg:text-[16px] ">
-          <p>Login to your account</p>
-          <p className=" text-sm">For Demo: <br/> Email: demo@gmail.com <br/> Password: demo123</p>
+            <p>Login to your account</p>
+            <p className=" text-sm">
+              For Demo: <br /> Email: demo@gmail.com <br /> Password: demo123
+            </p>
           </h1>
           <div className="flex flex-col my-3">
             <form className="flex flex-col gap-y-4">
@@ -81,14 +83,10 @@ const Login = () => {
             </button>
 
             <div className="bg-slate-100 h-1 rounded-full"></div>
-            <button className="bg-slate-200 p-2 rounded-lg flex flex-row items-center justify-center gap-3">
-              <FcGoogle className="w-5 h-5" />
-              <p>Continue with Google</p>
-            </button>
           </div>
           <div>
-            <p className="pt-5 text-sm font-medium">
-            <p>Don&apos; you have and account?</p>
+            <p className="pt-5 text-sm font-medium flex flex-row">
+              <p>Don&apos; you have and account?</p>
               <Link href="/signin" className="text-blue-500 ml-2">
                 Sign up
               </Link>
