@@ -85,10 +85,7 @@ const Signin = () => {
               Signin
             </button>
             <div className="bg-slate-100 h-1 rounded-full"></div>
-            <button className="bg-slate-200 p-2 rounded-lg flex flex-row items-center justify-center gap-3">
-              <FcGoogle className="w-5 h-5" />
-              <p>Continue with Google</p>
-            </button>
+            
           </div>
           <Link href="/login" className="flex flex-row items-center gap-1 text-sm mt-4 bg-gray-200 rounded-3xl p-1 text-gray-600 font-medium max-w-[160px]">
             <span className="ml-2">Go to Login page</span>
