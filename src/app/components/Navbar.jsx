@@ -25,14 +25,14 @@ const Navbar = () => {
   };
 
   return (
-    <div className="mx-[4rem] flex justify-center">
-      <div className="flex flex-row items-center gap-5">
-        <Link href="/home" className="font-semibold text-[30px] text-black mr-[4rem]">
+    <div className="lg:mx-[4rem] md:mt-[-2rem] flex justify-center">
+      <div className="flex flex-row items-center lg:gap-5 gap-3 ">
+        <Link href="/home" className="font-semibold text-[30px] text-black lg:mr-[4rem] mr-[1rem]">
           Blog
         </Link>
         <Link href="/home" className="font-medium">Home</Link>
         {user ? (
-          <div className="flex flex-row items-center gap-7">
+          <div className="flex flex-row items-center lg:gap-7 gap-4">
             <Link className="font-medium" href="/createpost">
               Create Post
             </Link>

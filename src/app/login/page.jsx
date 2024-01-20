@@ -32,10 +32,10 @@ const Login = () => {
   };
 
   return (
-    <div className="flex bg-white">
+    <div className="flex bg-white items-center">
       <div className="p-10 lg:flex-1">
         <div>
-          <h1 className="font-bold lg:text-[24px] text-2xl mb-[80px] lg:mb-[20px]">
+          <h1 className="font-bold lg:text-[24px] text-2xl mb-[60px] lg:mb-[20px] text-center lg:text-left">
             Login
           </h1>
         </div>
@@ -85,18 +85,18 @@ const Login = () => {
             <div className="bg-slate-100 h-1 rounded-full"></div>
           </div>
           <div>
-            <p className="pt-5 text-sm font-medium flex flex-row">
+            <div className="pt-5 text-sm font-medium flex flex-row ">
               <p>Don&apos; you have and account?</p>
               <Link href="/signin" className="text-blue-500 ml-2">
                 Sign up
               </Link>
-            </p>
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="lg:flex-1">
-        <Front />
+      <div className="lg:flex-1 flex-none hidden lg:block md:flex-1">
+        <Front className="md:w-[20px] md:h-[20px]"/>
       </div>
     </div>
   );

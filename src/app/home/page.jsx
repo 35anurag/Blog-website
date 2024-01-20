@@ -145,9 +145,9 @@ const Home = () => {
   }, [postCollection]);
 
   return (
-    <div className="bg-[#e4e3de] min-h-[100vh]">
+    <div className="bg-[#e4e3de] min-h-[100vh] ">
       <Navbar />
-      <div className="">
+      <div className=" mr-[66px] ">
         {post && post.length > 0 ? (
           post.map((post) => {
             return (
@@ -155,7 +155,7 @@ const Home = () => {
                 key={post.id}
                 className="flex flex-row items-center justify-center py-[3rem]"
               >
-                <div className="bg-white p-4 pr-[5rem]">
+                <div className="bg-white p-4 pr-[5rem] md:flex md:flex-col md:justify-center ">
                   <div className="flex flex-row justify-between items-center">
                     <div className="text-[18px] font-medium flex gap-2">
                       <p className="text-sm">{userName(post.author.name)}</p>
@@ -205,7 +205,7 @@ const Home = () => {
                           setInputComment(event.target.value)
                         }
                         placeholder="write a comment"
-                        className="pl-2 p-1 rounded-xl w-[15rem] outline-none bg-[#e4e3de]"
+                        className="pl-2 p-1 rounded-xl lg:w-[15rem] w-[10rem] outline-none bg-[#e4e3de]"
                       />
                       <button
                         onClick={() => handleComment(post.id)}
@@ -237,7 +237,7 @@ const Home = () => {
                     height={200}
                     src={post.image}
                     alt="image"
-                    className="absolute z-50 ml-[500px]"
+                    className="absolute z-50 lg:ml-[500px] ml-[330px] md:w-[150px] w-[140px]"
                   />
                 )}
               </div>
